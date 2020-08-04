@@ -140,18 +140,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		[ 1, displayNextWidth + 1, displayNextWidth * 2 + 1, displayNextWidth * 3 + 1 ], // straightTetromino
 	];
 
+	// select the smallTetrominoes' random. Each time the displaySmallTetrominoes function is called, remove any classNames from div's first by selecting next random tetromino
 	function displaySmallTetrominoes () {
 		displayNextSquares.forEach((square) => {
 			square.classList.remove('block');
 		});
-		// we'll also be selecting the smallTetrominoes' random. So, what's happening is each time the displaySmallTetrominoes function is evoked, we're removing any classNames from div's first by selecting next random tetromino
 		smallTetrominoes[nextRandomShapeIndex].forEach((index) => {
 			displayNextSquares[displayNextIndex + index].classList.add('block');
 		});
 	}
 
 	function freeze () {
-		// a lot will be happening in the freeze function. We need to freeze the tetromino if any or some of it's squares enter in square/s that contains className 'block3', the bottom of our grid essentially, OR if the nest square/s enter in the square/s with className 'block2'. If any of the above happens, tell the current tetromino to freeze the squares.
+		// freeze the tetromino if any or some of it's squares enter in square/s that contains className 'block3', the bottom of grid, OR if the next square/s enter in the square/s with className 'block2'.
 		if (
 			currentRotation.some(
 				(indexOfCurrentShape) =>
