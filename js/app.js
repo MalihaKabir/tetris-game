@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const zTetromino = [
 		[ 0, gridWidth, gridWidth + 1, gridWidth * 2 + 1 ],
 		[ gridWidth + 1, gridWidth + 2, gridWidth * 2, gridWidth * 2 + 1 ],
-		[ 0, gridWidth, gridWidth + 1, gridWidth * 2 + 1 ],
-		[ gridWidth + 1, gridWidth + 2, gridWidth * 2, gridWidth * 2 + 1 ],
+		[ gridWidth, gridWidth + 1, gridWidth * 2 + 1, gridWidth * 2 + 2 ],
+		[ 2, gridWidth + 1, gridWidth + 2, gridWidth * 2 + 1 ],
 	];
 
 	const tTetromino = [
@@ -73,8 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// select tetris tetrominoes randomly
 	let randomSelection = Math.floor(Math.random() * theTetrominoes.length);
-	let currentRotationIndex = 0;
-	let currentRotation = theTetrominoes[randomSelection][currentRotationIndex];
+	let currentRotationShape = 0;
+	let currentRotation = theTetrominoes[randomSelection][currentRotationShape];
 
 	// draw the shape
 	function drawShape () {
@@ -120,9 +120,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	// rotate tetromino
 	function rotateShape () {
 		undrawShape();
-		currentRotationIndex++;
-		if (currentRotationIndex === currentRotation.length) currentRotationIndex = 0;
-		currentRotation = theTetrominoes[randomSelection][currentRotationIndex];
+		currentRotationShape++;
+		if (currentRotationShape === currentRotation.length) currentRotationShape = 0;
+		currentRotation = theTetrominoes[randomSelection][currentRotationShape];
 		drawShape();
 	}
 
@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			randomSelection = nextRandomShapeIndex;
 			nextRandomShapeIndex = Math.floor(Math.random() * theTetrominoes.length);
-			currentRotation = theTetrominoes[randomSelection][currentRotationIndex];
+			currentRotation = theTetrominoes[randomSelection][currentRotationShape];
 			currentPosition = 4;
 			drawShape();
 			displaySmallTetrominoes();
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// add score to display
 	function addScore () {
-		for (let currentIndex = 0; currentIndex < lastIndex; currentIndex += gridWidth) {
+		for (currentIndex = 0; currentIndex < lastIndex; currentIndex += gridWidth) {
 			const row = [
 				currentIndex,
 				currentIndex + 1,
